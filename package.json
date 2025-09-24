@@ -1,0 +1,31 @@
+{
+  "name": "aitool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MayankRai89/SEEDHI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MayankRai89/SEEDHI/issues"
+  },
+  "homepage": "https://github.com/MayankRai89/SEEDHI#readme",
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "autoprefixer": "^10.4.21",
+    "axios": "^1.12.2",
+    "postcss": "^8.5.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.9.1",
+    "tailwindcss": "^4.1.13"
+  }
+}
