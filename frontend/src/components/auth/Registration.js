@@ -27,7 +27,8 @@ const Registration = ({ onProfileSubmit }) => {
 
   const skillOptions = [
     'Programming', 'Data Analysis', 'Design', 'Marketing',
-    'Communication', 'Research', 'Project Management', 'Content Writing'
+    'Communication', 'Research', 'Project Management', 'Content Writing','Computer Basics','Content Writing',
+    'Communication'
   ];
 
   const handleChange = (e) => {
@@ -236,14 +237,6 @@ const Registration = ({ onProfileSubmit }) => {
               value={formData.graduationDegree}
               onChange={handleChange}
               placeholder="Degree / Branch"
-              className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-            />
-            <input
-              type="text"
-              name="graduationUniversity"
-              value={formData.graduationUniversity || ''}
-              onChange={handleChange}
-              placeholder="University / College"
               className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
             <input

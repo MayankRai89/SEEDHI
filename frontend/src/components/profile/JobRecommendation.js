@@ -26,6 +26,25 @@ const JobRecommendation = ({ recommendations }) => {
   const topFive = sorted.slice(0, 5);
   const remaining = sorted.slice(5);
 
+  const handleShare = (rec) => {
+    const shareUrl = rec.application_url || rec.more_info_url || window.location.href;
+    const shareText = `Check out this internship: ${rec.role || "Internship"} at ${
+      rec.company || "Unknown Company"
+    } - ${shareUrl}`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: rec.role || "Internship",
+        text: shareText,
+        url: shareUrl,
+      }).catch((err) => console.log("Share cancelled", err));
+    } else {
+      navigator.clipboard.writeText(shareText).then(() => {
+        alert("Link copied to clipboard!");
+      });
+    }
+  };
+
   const renderJobCard = (rec, idx) => (
     <div key={idx} className="bg-white rounded-lg shadow-md p-5 flex flex-col space-y-2 hover:shadow-xl transition">
       <div className="flex justify-between items-start">
@@ -81,6 +100,12 @@ const JobRecommendation = ({ recommendations }) => {
             Know More
           </a>
         )}
+        <button
+          onClick={() => handleShare(rec)}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+        >
+          Share
+        </button>
       </div>
     </div>
   );
