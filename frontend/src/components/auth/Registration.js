@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaShareAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import {
   UserIcon, PhoneIcon, LockClosedIcon, AcademicCapIcon,

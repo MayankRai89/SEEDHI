@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { FaShareAlt } from "react-icons/fa";
 const JobRecommendation = ({ recommendations }) => {
   const [showAll, setShowAll] = useState(false);
 
@@ -28,9 +28,8 @@ const JobRecommendation = ({ recommendations }) => {
 
   const handleShare = (rec) => {
     const shareUrl = rec.application_url || rec.more_info_url || window.location.href;
-    const shareText = `Check out this internship: ${rec.role || "Internship"} at ${
-      rec.company || "Unknown Company"
-    } - ${shareUrl}`;
+    const shareText = `Check out this internship: ${rec.role || "Internship"} at ${rec.company || "Unknown Company"
+      } - ${shareUrl}`;
 
     if (navigator.share) {
       navigator.share({
@@ -102,9 +101,10 @@ const JobRecommendation = ({ recommendations }) => {
         )}
         <button
           onClick={() => handleShare(rec)}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition flex items-center space-x-2"
         >
-          Share
+          <FaShareAlt />
+          <span>Share</span>
         </button>
       </div>
     </div>
