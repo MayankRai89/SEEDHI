@@ -1,5 +1,5 @@
 import pandas as pd
-from sentence_transformers import SentenceTransformer, util
+from sentence_transformers import SentenceTransformer, util # pyright: ignore[reportMissingImports]
 from PyPDF2 import PdfReader
 import docx
 import re

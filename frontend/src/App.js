@@ -8,7 +8,7 @@ import Registration from './components/auth/Registration';
 import Dashboard from './components/profile/Dashboard';
 import JobRecommendation from './components/profile/JobRecommendation';
 import HomePage from './pages/HomePage';
-
+import { BellIcon } from '@heroicons/react/24/outline';
 function Header() {
   const location = useLocation();
 
@@ -19,16 +19,25 @@ function Header() {
           SEEDHI
         </a>
         {location.pathname === '/' && (
-          <nav className="hidden md:flex space-x-6">
+          <nav className="hidden md:flex space-x-6 items-center">
             <a href="/" className="text-gray-700 hover:text-[#FF9933]">Home</a>
             <a href="/login" className="text-gray-700 hover:text-[#FF9933]">Login</a>
             <a href="/register" className="text-gray-700 hover:text-[#FF9933]">Register</a>
+            
+            {/* Notification Icon */}
+            <div className="relative cursor-pointer">
+              <BellIcon className="w-6 h-6 text-gray-700 hover:text-[#FF9933]" />
+              {/* Optional: Red dot for unread notifications */}
+              <span className="absolute top-0 right-0 block w-2 h-2 rounded-full bg-red-500"></span>
+            </div>
           </nav>
         )}
       </div>
     </header>
   );
 }
+
+
 
 function Footer() {
   return (

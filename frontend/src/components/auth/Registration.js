@@ -22,13 +22,16 @@ const Registration = ({ onProfileSubmit }) => {
     graduationMarks: '',
     graduationYear: '',
     skillsArray: [],
-    resume: null
+    resume: null,
+    sectorInterests: [],        // ✅ added
+    preferredLocation: ''       // ✅ added
   });
+
   const [errors, setErrors] = useState({});
 
   const skillOptions = [
     'Programming', 'Data Analysis', 'Design', 'Marketing',
-    'Communication', 'Research', 'Project Management', 'Content Writing','Computer Basics','Content Writing',
+    'Communication', 'Research', 'Project Management', 'Content Writing', 'Computer Basics', 'Content Writing',
     'Communication'
   ];
 
@@ -249,7 +252,7 @@ const Registration = ({ onProfileSubmit }) => {
               className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
             <input
-              type="number"   
+              type="number"
               name="graduationYear"
               value={formData.graduationYear}
               onChange={handleChange}
@@ -284,7 +287,7 @@ const Registration = ({ onProfileSubmit }) => {
       {step === 3 && (
         <div>
           <h2 className="text-2xl font-bold mb-5 text-center flex items-center justify-center gap-2">
-            <Cog6ToothIcon className="w-6 h-6" /> Skills & Resume
+            <Cog6ToothIcon className="w-6 h-6" /> Profile Details
           </h2>
 
           {/* Skills Multi-select */}
@@ -323,6 +326,39 @@ const Registration = ({ onProfileSubmit }) => {
             {errors.skills && <p className="text-red-500 text-sm mt-1">{errors.skills}</p>}
           </div>
 
+          {/* Sector Interests */}
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">Sector Interests</label>
+            <select
+              multiple
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              value={formData.sectorInterests}   // ✅ controlled value
+              onChange={(e) => {
+                const selected = Array.from(e.target.selectedOptions, option => option.value);
+                setFormData({ ...formData, sectorInterests: selected });
+              }}
+            >
+              <option value="IT">IT</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Design">Design</option>
+              <option value="Finance">Finance</option>
+              <option value="Content Writing">Content Writing</option>
+              <option value="Research">Research</option>
+            </select>
+          </div>
+
+          {/* Preferred Location */}
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">Preferred Location</label>
+            <input
+              type="text"
+              name="preferredLocation"
+              placeholder="City / Remote"
+              value={formData.preferredLocation}
+              onChange={handleChange}
+              className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
           {/* Resume Upload */}
           <div className="flex items-center border rounded px-3 py-2 mb-2">
             <DocumentTextIcon className="w-5 h-5 text-gray-400 mr-2" />
