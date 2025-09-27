@@ -21,10 +21,7 @@ const Dashboard = ({ profile, setRecommendations }) => {
         { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-      // Save recommendations in App state
       setRecommendations(response.data.recommendations || []);
-
-      // Navigate to Job Recommendation page
       navigate("/jobs");
     } catch (err) {
       console.error(err);
@@ -47,25 +44,21 @@ const Dashboard = ({ profile, setRecommendations }) => {
         </div>
 
         <h2 className="text-xl font-bold text-center">{profile.name}</h2>
-        <p className="text-gray-500 text-sm text-center">{profile.phone}</p>
+        <p className="text-gray-500 text-sm text-center">{profile.phone}</p>  
+        <p className="text-gray-500 text-sm text-center">{profile.age}</p>  
 
         {/* Education Details */}
         <div className="mt-6 w-full">
           <h3 className="font-semibold mb-2 border-b pb-1">Education</h3>
           <ul className="text-sm space-y-2">
-            {/* Class 10 */}
             <li>
               <span className="font-semibold">10th:</span> {profile.class10Board} - {profile.class10Marks}% ({profile.class10Year})
             </li>
-
-            {/* Class 12 */}
             <li>
               <span className="font-semibold">12th:</span> {profile.class12Board} - {profile.class12Marks}% ({profile.class12Year})
             </li>
-
-            {/* Graduation */}
             <li>
-              <span className="font-semibold">Graduation:</span> {profile.graduationDegree} ({profile.graduationUniversity}) - {profile.graduationMarks} CGPA ({profile.graduationYear})
+              <span className="font-semibold">Graduation:</span> {profile.graduationDegree} ({profile.graduationUniversity || "N/A"}) - {profile.graduationMarks} CGPA ({profile.graduationYear})
             </li>
           </ul>
 
@@ -76,6 +69,26 @@ const Dashboard = ({ profile, setRecommendations }) => {
               <span key={idx} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs">{skill}</span>
             ))}
           </div>
+
+          {/* Sector Interests */}
+          {profile.sectorInterests && profile.sectorInterests.length > 0 && (
+            <>
+              <h3 className="font-semibold mt-4 mb-2 border-b pb-1">Sector Interests</h3>
+              <div className="flex flex-wrap gap-2">
+                {profile.sectorInterests.map((sector, idx) => (
+                  <span key={idx} className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs">{sector}</span>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Preferred Location */}
+          {profile.preferredLocation && (
+            <div className="mt-4">
+              <h3 className="font-semibold mb-1">Preferred Location</h3>
+              <p className="text-sm">{profile.preferredLocation}</p>
+            </div>
+          )}
         </div>
 
         {/* Buttons */}

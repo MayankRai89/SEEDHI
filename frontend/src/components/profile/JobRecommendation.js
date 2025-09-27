@@ -44,71 +44,105 @@ const JobRecommendation = ({ recommendations }) => {
     }
   };
 
-  const renderJobCard = (rec, idx) => (
-    <div key={idx} className="bg-white rounded-lg shadow-md p-5 flex flex-col space-y-2 hover:shadow-xl transition">
-      <div className="flex justify-between items-start">
-        <div>
-          <h3 className="text-xl font-semibold">{rec.role || "Role not available"}</h3>
-          <p className="text-gray-700">{rec.company || "Company not available"} | {rec.location || "Location not available"}</p>
-        </div>
-        <span className="text-sm text-gray-500">{rec.date_posted || "Date not available"}</span>
-      </div>
-
-      <p className="text-gray-600 mt-2">{rec.description || "Description not available"}</p>
-
+ const renderJobCard = (rec, idx) => (
+  <div
+    key={idx}
+    className="bg-white rounded-lg shadow-md p-5 flex flex-col space-y-2 hover:shadow-xl transition"
+  >
+    <div className="flex justify-between items-start">
       <div>
-        <strong>Required Skills:</strong>{" "}
-        {rec.requiredSkills.length > 0 ? rec.requiredSkills.map((skill, i) => (
-          <span key={i} className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm mr-2 mt-1">
-            {skill}
-          </span>
-        )) : <span className="text-gray-400">No skills listed</span>}
+        <h3 className="text-xl font-semibold">{rec.role || "Role not available"}</h3>
+        <p className="text-gray-700">
+          {rec.company || "Company not available"} |{" "}
+          {rec.location || "Location not available"}
+        </p>
       </div>
-
-      <div>
-        <strong>Matched Skills:</strong>{" "}
-        {rec.matchedSkills.length > 0 ? rec.matchedSkills.map((skill, i) => (
-          <span key={i} className="inline-block bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm mr-2 mt-1">
-            {skill}
-          </span>
-        )) : <span className="text-gray-400">No matches</span>}
-      </div>
-
-      <p className="text-gray-700 font-medium mt-1">
-        ✅ Skills Matched: {rec.matchedSkills.length} | Chance to get selected: {rec.chance}%
-      </p>
-
-      <div className="mt-3 flex space-x-4">
-        {rec.application_url && (
-          <a
-            href={rec.application_url}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-          >
-            Apply
-          </a>
-        )}
-        {rec.more_info_url && (
-          <a
-            href={rec.more_info_url}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition"
-          >
-            Know More
-          </a>
-        )}
-        <button
-          onClick={() => handleShare(rec)}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition flex items-center space-x-2"
-        >
-          <FaShareAlt />
-          <span>Share</span>
-        </button>
-      </div>
+      <span className="text-sm text-gray-500">
+        {rec.date_posted || "Date not available"}
+      </span>
     </div>
-  );
+
+    {/* Description */}
+    <p className="text-gray-600 mt-2">{rec.description || "Description not available"}</p>
+
+    {/* Salary */}
+    <p className="text-gray-700 font-medium flex items-center space-x-2">
+      💰 <span>Salary: {rec.salary || "Not specified"}</span>
+    </p>
+
+    {/* Required Skills */}
+    <div>
+      <strong>Required Skills:</strong>{" "}
+      {rec.requiredSkills.length > 0 ? (
+        rec.requiredSkills.map((skill, i) => (
+          <span
+            key={i}
+            className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm mr-2 mt-1"
+          >
+            {skill}
+          </span>
+        ))
+      ) : (
+        <span className="text-gray-400">No skills listed</span>
+      )}
+    </div>
+
+    {/* Matched Skills */}
+    <div>
+      <strong>Matched Skills:</strong>{" "}
+      {rec.matchedSkills.length > 0 ? (
+        rec.matchedSkills.map((skill, i) => (
+          <span
+            key={i}
+            className="inline-block bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm mr-2 mt-1"
+          >
+            {skill}
+          </span>
+        ))
+      ) : (
+        <span className="text-gray-400">No matches</span>
+      )}
+    </div>
+
+    {/* Chance */}
+    <p className="text-gray-700 font-medium mt-1">
+      ✅ Skills Matched: {rec.matchedSkills.length} | Chance to get selected:{" "}
+      {rec.chance}%
+    </p>
+
+    {/* Actions */}
+    <div className="mt-3 flex space-x-4">
+      {rec.application_url && (
+        <a
+          href={rec.application_url}
+          target="_blank"
+          rel="noreferrer"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        >
+          Apply
+        </a>
+      )}
+      {rec.more_info_url && (
+        <a
+          href={rec.more_info_url}
+          target="_blank"
+          rel="noreferrer"
+          className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition"
+        >
+          Know More
+        </a>
+      )}
+      <button
+        onClick={() => handleShare(rec)}
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition flex items-center space-x-2"
+      >
+        <FaShareAlt />
+        <span>Share</span>
+      </button>
+    </div>
+  </div>
+);
+
 
   return (
     <div className="max-w-5xl mx-auto mt-6 space-y-6 p-4">

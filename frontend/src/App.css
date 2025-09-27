@@ -8,12 +8,7 @@ body, html, #root {
   text-align: center;
   min-height: 100vh;
   /* Full-page tricolor background */
-  background: linear-gradient(
-    to bottom,
-    #e1aa74 20%,    /* Saffron */
-    #FFFFFF 30%,   /* White */
-    #5bdf4f 40%    /* Green */
-  );
+ 
   display: flex;
   flex-direction: column;
 }
@@ -36,6 +31,30 @@ body, html, #root {
   height: 40vmin;
   pointer-events: none;
 }
+
+/* Apply tricolor background to entire app */
+body, html, #root {
+  height: 100%;
+  margin: 0;
+}
+
+.App {
+  text-align: center;
+  min-height: 100vh;
+
+  /* Full-page tricolor background */
+  background: linear-gradient(
+    to bottom,
+    #FF9933 0%,   /* Saffron (top) */
+    #FFFFFF 33%,  /* White (middle) */
+    #138808 66%,  /* Green (bottom) */
+    #138808 100%
+  );
+
+  display: flex;
+  flex-direction: column;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

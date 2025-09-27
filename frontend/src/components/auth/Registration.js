@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaShareAlt } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import {
   UserIcon, PhoneIcon, LockClosedIcon, AcademicCapIcon,
@@ -12,6 +11,7 @@ const Registration = ({ onProfileSubmit }) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    Age: '',
     password: '',
     confirmPassword: '',
     class10Marks: '',
@@ -23,16 +23,19 @@ const Registration = ({ onProfileSubmit }) => {
     graduationYear: '',
     skillsArray: [],
     resume: null,
-    sectorInterests: [],        // ✅ added
-    preferredLocation: ''       // ✅ added
+    sectorInterests: [],
+    preferredLocation: ''
   });
 
   const [errors, setErrors] = useState({});
 
   const skillOptions = [
     'Programming', 'Data Analysis', 'Design', 'Marketing',
-    'Communication', 'Research', 'Project Management', 'Content Writing', 'Computer Basics', 'Content Writing',
-    'Communication'
+    'Communication', 'Research', 'Project Management', 'Content Writing', 'Computer Basics'
+  ];
+
+  const sectorOptions = [
+    "IT", "Marketing", "Design", "Finance", "Content Writing", "Research"
   ];
 
   const handleChange = (e) => {
@@ -57,6 +60,7 @@ const Registration = ({ onProfileSubmit }) => {
       if (!formData.graduationYear) newErrors.graduationYear = 'Graduation year required';
     } else if (step === 3) {
       if (!formData.skillsArray || formData.skillsArray.length === 0) newErrors.skills = 'Skills required';
+      if (!formData.sectorInterests || formData.sectorInterests.length === 0) newErrors.sectorInterests = 'At least one sector required';
       if (!formData.resume) newErrors.resume = 'Resume required';
     }
     return newErrors;
@@ -80,10 +84,7 @@ const Registration = ({ onProfileSubmit }) => {
   const handleSubmit = () => {
     const newErrors = validateStep();
     if (Object.keys(newErrors).length === 0) {
-      // Save profile in App state
       onProfileSubmit(formData);
-
-      // Navigate to dashboard
       navigate("/profile", { state: { profile: formData } });
     } else {
       setErrors(newErrors);
@@ -121,6 +122,18 @@ const Registration = ({ onProfileSubmit }) => {
               />
             </div>
             {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+
+            <div className="flex items-center border rounded px-3 py-2">
+              <UserIcon className="w-5 h-5 text-gray-400 mr-2" />
+              <input
+                name="Age"
+                value={formData.age}
+                onChange={handleChange}
+                placeholder="Age"
+                className="w-full focus:outline-none"
+              />
+            </div>
+            {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
 
             <div className="flex items-center border rounded px-3 py-2">
               <LockClosedIcon className="w-5 h-5 text-gray-400 mr-2" />
@@ -162,17 +175,20 @@ const Registration = ({ onProfileSubmit }) => {
       {/* Step 2: Education Info */}
       {step === 2 && (
         <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Education Details</h2>
+          <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+            Education Details
+          </h2>
 
           {/* Class 10 */}
           <h3 className="font-semibold mb-3 text-gray-700 flex items-center">
-            <AcademicCapIcon className="w-5 h-5 mr-2 text-blue-600" />Class 10
+            <AcademicCapIcon className="w-5 h-5 mr-2 text-blue-600" />
+            Class 10
           </h3>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <input
               type="text"
               name="class10Board"
-              value={formData.class10Board || ''}
+              value={formData.class10Board || ""}
               onChange={handleChange}
               placeholder="Board"
               className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -194,18 +210,23 @@ const Registration = ({ onProfileSubmit }) => {
               className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 col-span-2"
             />
           </div>
-          {errors.class10Marks && <p className="text-red-500 text-sm mb-2">{errors.class10Marks}</p>}
-          {errors.class10Year && <p className="text-red-500 text-sm mb-2">{errors.class10Year}</p>}
+          {errors.class10Marks && (
+            <p className="text-red-500 text-sm mb-2">{errors.class10Marks}</p>
+          )}
+          {errors.class10Year && (
+            <p className="text-red-500 text-sm mb-2">{errors.class10Year}</p>
+          )}
 
           {/* Class 12 */}
           <h3 className="font-semibold mb-3 text-gray-700 flex items-center">
-            <AcademicCapIcon className="w-5 h-5 mr-2 text-green-600" />Class 12
+            <AcademicCapIcon className="w-5 h-5 mr-2 text-green-600" />
+            Class 12
           </h3>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <input
               type="text"
               name="class12Board"
-              value={formData.class12Board || ''}
+              value={formData.class12Board || ""}
               onChange={handleChange}
               placeholder="Board"
               className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -227,12 +248,17 @@ const Registration = ({ onProfileSubmit }) => {
               className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 col-span-2"
             />
           </div>
-          {errors.class12Marks && <p className="text-red-500 text-sm mb-2">{errors.class12Marks}</p>}
-          {errors.class12Year && <p className="text-red-500 text-sm mb-2">{errors.class12Year}</p>}
+          {errors.class12Marks && (
+            <p className="text-red-500 text-sm mb-2">{errors.class12Marks}</p>
+          )}
+          {errors.class12Year && (
+            <p className="text-red-500 text-sm mb-2">{errors.class12Year}</p>
+          )}
 
           {/* Graduation */}
           <h3 className="font-semibold mb-3 text-gray-700 flex items-center">
-            <AcademicCapIcon className="w-5 h-5 mr-2 text-purple-600" />Graduation
+            <AcademicCapIcon className="w-5 h-5 mr-2 text-purple-600" />
+            Graduation
           </h3>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <input
@@ -260,8 +286,12 @@ const Registration = ({ onProfileSubmit }) => {
               className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
-          {errors.graduationMarks && <p className="text-red-500 text-sm mb-2">{errors.graduationMarks}</p>}
-          {errors.graduationYear && <p className="text-red-500 text-sm mb-2">{errors.graduationYear}</p>}
+          {errors.graduationMarks && (
+            <p className="text-red-500 text-sm mb-2">{errors.graduationMarks}</p>
+          )}
+          {errors.graduationYear && (
+            <p className="text-red-500 text-sm mb-2">{errors.graduationYear}</p>
+          )}
 
           {/* Navigation Buttons */}
           <div className="flex justify-between mt-6">
@@ -283,7 +313,7 @@ const Registration = ({ onProfileSubmit }) => {
         </div>
       )}
 
-      {/* Step 3: Skills & Resume */}
+      {/* Step 3: Skills & Sectors */}
       {step === 3 && (
         <div>
           <h2 className="text-2xl font-bold mb-5 text-center flex items-center justify-center gap-2">
@@ -292,7 +322,7 @@ const Registration = ({ onProfileSubmit }) => {
 
           {/* Skills Multi-select */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Your Skills</label>
+            <label className="block font-medium mb-2">Your Skills</label>
             <div className="flex flex-wrap gap-2 mb-2">
               {formData.skillsArray.map((skill, index) => (
                 <span key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center text-sm">
@@ -300,7 +330,7 @@ const Registration = ({ onProfileSubmit }) => {
                   <button
                     type="button"
                     onClick={() => setFormData({ ...formData, skillsArray: formData.skillsArray.filter(s => s !== skill) })}
-                    className="ml-2 text-blue-600 hover:text-blue-800 focus:outline-none"
+                    className="ml-2 text-blue-600 hover:text-blue-800"
                   >
                     &times;
                   </button>
@@ -308,13 +338,13 @@ const Registration = ({ onProfileSubmit }) => {
               ))}
             </div>
             <select
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border px-3 py-2 rounded"
               onChange={(e) => {
                 const skill = e.target.value;
                 if (skill && !formData.skillsArray.includes(skill)) {
                   setFormData({ ...formData, skillsArray: [...formData.skillsArray, skill] });
                 }
-                e.target.value = '';
+                e.target.value = "";
               }}
               value=""
             >
@@ -323,42 +353,58 @@ const Registration = ({ onProfileSubmit }) => {
                 <option key={idx} value={skill}>{skill}</option>
               ))}
             </select>
-            {errors.skills && <p className="text-red-500 text-sm mt-1">{errors.skills}</p>}
+            {errors.skills && <p className="text-red-500 text-sm">{errors.skills}</p>}
           </div>
 
-          {/* Sector Interests */}
+          {/* Sector Interests Multi-select */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Sector Interests</label>
+            <label className="block font-medium mb-2">Your Sector Interests</label>
+            <div className="flex flex-wrap gap-2 mb-2">
+              {formData.sectorInterests.map((sector, index) => (
+                <span key={index} className="bg-green-100 text-green-800 px-3 py-1 rounded-full flex items-center text-sm">
+                  {sector}
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, sectorInterests: formData.sectorInterests.filter(s => s !== sector) })}
+                    className="ml-2 text-green-600 hover:text-green-800"
+                  >
+                    &times;
+                  </button>
+                </span>
+              ))}
+            </div>
             <select
-              multiple
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              value={formData.sectorInterests}   // ✅ controlled value
+              className="w-full border px-3 py-2 rounded"
               onChange={(e) => {
-                const selected = Array.from(e.target.selectedOptions, option => option.value);
-                setFormData({ ...formData, sectorInterests: selected });
+                const sector = e.target.value;
+                if (sector && !formData.sectorInterests.includes(sector)) {
+                  setFormData({ ...formData, sectorInterests: [...formData.sectorInterests, sector] });
+                }
+                e.target.value = "";
               }}
+              value=""
             >
-              <option value="IT">IT</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Design">Design</option>
-              <option value="Finance">Finance</option>
-              <option value="Content Writing">Content Writing</option>
-              <option value="Research">Research</option>
+              <option value="" disabled>Select your sector interests</option>
+              {sectorOptions.filter(sector => !formData.sectorInterests.includes(sector)).map((sector, idx) => (
+                <option key={idx} value={sector}>{sector}</option>
+              ))}
             </select>
+            {errors.sectorInterests && <p className="text-red-500 text-sm">{errors.sectorInterests}</p>}
           </div>
 
           {/* Preferred Location */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Preferred Location</label>
+            <label className="block font-medium mb-2">Preferred Location</label>
             <input
               type="text"
               name="preferredLocation"
               placeholder="City / Remote"
               value={formData.preferredLocation}
               onChange={handleChange}
-              className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full border px-3 py-2 rounded"
             />
           </div>
+
           {/* Resume Upload */}
           <div className="flex items-center border rounded px-3 py-2 mb-2">
             <DocumentTextIcon className="w-5 h-5 text-gray-400 mr-2" />
@@ -366,18 +412,17 @@ const Registration = ({ onProfileSubmit }) => {
               type="file"
               name="resume"
               onChange={(e) => setFormData({ ...formData, resume: e.target.files[0] })}
-              className="w-full focus:outline-none"
+              className="w-full"
             />
           </div>
           {errors.resume && <p className="text-red-500 text-sm">{errors.resume}</p>}
 
           <div className="flex justify-between mt-4">
-            <button type="button" onClick={prevStep} className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600">Back</button>
-            <button type="button" onClick={handleSubmit} className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">Submit</button>
+            <button onClick={prevStep} className="bg-gray-500 text-white py-2 px-4 rounded">Back</button>
+            <button onClick={handleSubmit} className="bg-green-600 text-white py-2 px-4 rounded">Submit</button>
           </div>
         </div>
       )}
-
     </div>
   );
 };
