@@ -44,16 +44,32 @@ const JobRecommendation = ({ recommendations }) => {
     }
   };
 
- const renderJobCard = (rec, idx) => (
+const renderJobCard = (rec, idx) => (
   <div
     key={idx}
     className="bg-white rounded-lg shadow-md p-5 flex flex-col space-y-2 hover:shadow-xl transition"
   >
+    {/* Company Name at the top */}
+    <h2 className="text-2xl font-bold text-blue-800">
+      {rec.company || "Company not available"}
+    </h2>
+
+    {/* Company Description just below company name */}
+    {rec.description ? (
+      <p className="text-gray-600 mb-2">
+        {rec.description}
+      </p>
+    ) : (
+      <p className="text-gray-400 mb-2">No company description available</p>
+    )}
+
     <div className="flex justify-between items-start">
       <div>
-        <h3 className="text-xl font-semibold">{rec.role || "Role not available"}</h3>
-        <p className="text-gray-700">
-          {rec.company || "Company not available"} |{" "}
+        {/* Role below company description */}
+        <h3 className="text-lg font-semibold text-gray-800">
+          {rec.role || "Role not available"}
+        </h3>
+        <p className="text-gray-600">
           {rec.location || "Location not available"}
         </p>
       </div>
@@ -62,8 +78,6 @@ const JobRecommendation = ({ recommendations }) => {
       </span>
     </div>
 
-    {/* Description */}
-    <p className="text-gray-600 mt-2">{rec.description || "Description not available"}</p>
 
     {/* Salary */}
     <p className="text-gray-700 font-medium flex items-center space-x-2">
@@ -142,6 +156,7 @@ const JobRecommendation = ({ recommendations }) => {
     </div>
   </div>
 );
+
 
 
   return (
