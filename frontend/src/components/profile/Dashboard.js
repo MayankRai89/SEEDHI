@@ -16,7 +16,7 @@ const Dashboard = ({ profile, setRecommendations }) => {
       data.append("file", profile.resume);
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/match-resume",
+        "http://54.162.133.248:8000/match-resume",
         data,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
