@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "concurrently \"npm --prefix frontend start\" \"uvicorn app.main:app --reload --host 127.0.0.1 --port 8000\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,5 +28,8 @@
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.1",
     "tailwindcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
